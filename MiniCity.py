@@ -15,10 +15,10 @@ import globals
 class MiniCity():
 	def __init__(self):
 	
-		pygame.init()
+                pygame.init()
 		pygame.display.set_caption("MiniCity")
 		
-		globals.screen = pygame.display.set_mode((800, 600))
+		globals.screen = pygame.display.set_mode((1200, 1000))
 		globals.input = Input()
 		
 		globals.viewport = Viewport()
