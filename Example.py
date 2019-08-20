@@ -13,7 +13,6 @@ from Vector3D     import *
 
 
 import pygame
-import globals
 
 
 class Example():
@@ -23,7 +22,7 @@ class Example():
     pygame.display.set_caption("PySmallIsoExample")
     
     
-    screen = pygame.display.set_mode((1280, 1024), pygame.locals.DOUBLEBUF)
+    screen = pygame.display.set_mode((1920, 1200), pygame.locals.DOUBLEBUF | pygame.locals.HWSURFACE )
     self.screen = screen
 
     input = Input()
@@ -48,7 +47,7 @@ class Example():
     img = loadImage("assets/truck.png")
     spr = Sprite(img)
     scene.addSprite("Overground", spr)
-    '''
+    
     img = loadImage("assets/aircraft.png")
     spr = Sprite(img)
     spr.setLocation(Vector3D(0.5,0,0))
@@ -59,13 +58,13 @@ class Example():
     spr.setLocation(Vector3D(0.5,0.5,0))
     scene.addSprite("Overground", spr)
     
-    hm = SimplexHeightmap(100,100)
+    hm = SimplexHeightmap(200,200)
     terrain = Terrain(hm)
     tiles = terrain.create()
 
     for tile in tiles:
       scene.addSprite("Land", tile)
-    '''
+   
 
     done  = False
     clock = pygame.time.Clock()

@@ -1,7 +1,6 @@
 from Vector2D import *
 from Vector3D import *
 import threading
-import globals
 import time
 
 
