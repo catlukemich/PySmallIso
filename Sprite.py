@@ -31,7 +31,6 @@ class Sprite:
     
       mouse_relative = mouse - top_left
       color = self.image.get_at((int(mouse_relative.x), int(mouse_relative.y)))
-      print color
       if color.r == 255 and color.g == 0 and color.b == 255:
         return False
       else: 

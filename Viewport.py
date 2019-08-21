@@ -2,6 +2,16 @@ from Vector2D import *
 from Vector3D import *
 import threading
 import time
+import multiprocessing
+
+# The tile width and height in pixels.
+# Modify this values if you want tiles to be in different size.
+TILE_WIDTH  = 128
+TILE_HEIGHT = 64
+
+# Precalculated half tile dimensions, dont touch that
+HALF_TILE_WIDTH = TILE_WIDTH / 2
+HALF_TILE_HEIGHT = TILE_HEIGHT / 2
 
 
 class ViewportLayer:
@@ -16,7 +26,7 @@ class Viewport:
     self.center = Vector3D(0,0)
     self.land_sprites  = []
     self.world_sprites = []
-    self.layers = []
+    self.layers = [] # List of viewport layers
 
     self.culled_and_sorted = False
     self.cull_and_sort_thread = threading.Thread(target = self.cull_and_sort)
@@ -26,17 +36,31 @@ class Viewport:
 
     
   def draw(self):
+    viewport_layers = self.layers
+    for viewport_layer in viewport_layers:
+      viewport_layer.sprites.sort(cmp=self.sortSprites)
+
     for layer in self.layers:
       for sprite in layer.sprites:
         sprite.draw(self, self.screen)
 
+  # Sort the layers:
+  def sortSprites(self, sprite1, sprite2):
+    loc1 = sprite1.getLocation()
+    loc2 = sprite2.getLocation()
+    sum1 = loc1.x + loc1.y + loc1.z
+    sum2 = loc2.x + loc2.y + loc2.z
+    if sum1 > sum2: return 1
+    else: return -1
+
+   
 
   def cull_and_sort(self):
     
     offset = 256 # The offset for culling sprites
 
+    (w,h) = self.screen.get_size()   
     while True:
-      (w,h) = self.screen.get_size()   
       viewport_layers = []
 
       
@@ -53,16 +77,7 @@ class Viewport:
           if pos.x > -offset and pos.x < w + offset and pos.y > -offset and pos.y < h + offset:
             viewport_layer.sprites.append(sprite)
     
-
-      # Sort the layers:
-      def sortSprites(sprite1, sprite2):
-        loc1 = sprite1.getLocation()
-        loc2 = sprite2.getLocation()
-        return int(loc1.x + loc1.y + loc1.z) - int(loc2.x + loc2.y + loc2.z)
-
-      for viewport_layer in viewport_layers:
-        viewport_layer.sprites.sort(cmp=sortSprites)
-        
+   
       self.layers = viewport_layers
 
 
@@ -74,20 +89,20 @@ class Viewport:
     
   def project(self, location):
     ''' Project from world location to world position '''
-    x = (location.x - location.y) * 64
-    y = (location.x + location.y - location.z) * 32
+    x = (location.x - location.y) * HALF_TILE_WIDTH
+    y = (location.x + location.y - location.z) * HALF_TILE_HEIGHT
     (w,h) = self.screen.get_size() 
     projected = Vector2D(x + w/2, y + h/2);
     center    = self.projectCenter()
     return projected - center
     
   def projectCenter(self):
-    x = (self.center.x - self.center.y) * 64
-    y = (self.center.x + self.center.y - self.center.z) * 32
+    x = (self.center.x - self.center.y) * HALF_TILE_WIDTH
+    y = (self.center.x + self.center.y - self.center.z) * HALF_TILE_HEIGHT
     return Vector2D(x,y)
     
     
-  def pickSprite(self, mouse_x, mouse_y):
+  def pickSprites(self, mouse_x, mouse_y):
     
     picked_sprites = []
 
@@ -96,6 +111,7 @@ class Viewport:
         is_picked = sprite.isPicked(self, mouse_x, mouse_y)
         if is_picked:
           picked_sprites.append(sprite)
-
+    
+    picked_sprites.reverse()
     return picked_sprites
 

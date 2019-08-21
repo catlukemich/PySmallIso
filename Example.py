@@ -1,15 +1,16 @@
-from Tkinter      import *
-from Input        import *
-from Scene        import *
-from Viewport     import *
-from Scroller     import *
-from SpritePicker import *
-from Sprite       import *
-from Updateables  import *
-from Terrain      import *
-from Heightmap    import *
-from utils        import *
-from Vector3D     import *
+from Tkinter        import *
+from Input          import *
+from Scene          import *
+from Viewport       import *
+from Scroller       import *
+from SpritePicker   import *
+from SpriteGrabber  import *
+from Sprite         import *
+from Updateables    import *
+from Terrain        import *
+from Heightmap      import *
+from utils          import *
+from Vector3D       import *
 
 
 import pygame
@@ -22,7 +23,7 @@ class Example():
     pygame.display.set_caption("PySmallIsoExample")
     
     
-    screen = pygame.display.set_mode((1920, 1200), pygame.locals.DOUBLEBUF | pygame.locals.HWSURFACE )
+    screen = pygame.display.set_mode((1024, 768), pygame.RESIZABLE | pygame.DOUBLEBUF | pygame.HWSURFACE )
     self.screen = screen
 
     input = Input()
@@ -43,6 +44,9 @@ class Example():
 
     sprite_picker = SpritePicker(input, viewport)
     sprite_picker.enable()
+
+    sprite_grabber = SpriteGrabber(input, viewport)
+    sprite_grabber.enable()
 
     img = loadImage("assets/truck.png")
     spr = Sprite(img)

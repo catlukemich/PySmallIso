@@ -12,6 +12,9 @@ class SpritePicker(MouseListener):
     mouse_x = event.pos[0]
     mouse_y = event.pos[1]
     
-    sprites = self.viewport.pickSprite(mouse_x, mouse_y)
+    sprites = self.viewport.pickSprites(mouse_x, mouse_y)
+    if len(sprites) > 0:
+      self.sprite_grabbed = sprites[0]
 
-    print sprites
+
+  
