@@ -1,6 +1,6 @@
 from Noise  import *
-from utils  import *
-from Sprite import *
+from iso.utils  import *
+from iso.Sprite import *
     
 class Terrain:
   def __init__(self, hm):

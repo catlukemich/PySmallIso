@@ -1,5 +1,5 @@
-from Input import *
-from Viewport import *
+from .Input import *
+from .Viewport import *
 
 class SpriteGrabber(MouseListener):
   def __init__(self, input, viewport):

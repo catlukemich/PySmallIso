@@ -1,4 +1,4 @@
-from Input import *
+from .Input import *
 
 class SpritePicker(MouseListener):
   def __init__(self, input, viewport):

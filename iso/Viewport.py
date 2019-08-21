@@ -1,8 +1,7 @@
-from Vector2D import *
-from Vector3D import *
+from .Vector2D import *
+from .Vector3D import *
 import threading
 import time
-import multiprocessing
 
 # The tile width and height in pixels.
 # Modify this values if you want tiles to be in different size.
@@ -29,9 +28,9 @@ class Viewport:
     self.layers = [] # List of viewport layers
 
     self.culled_and_sorted = False
-    self.cull_and_sort_thread = threading.Thread(target = self.cull_and_sort)
-    self.cull_and_sort_thread.daemon = True
-    self.cull_and_sort_thread.start()
+    self.cull = threading.Thread(target = self.cull_and_sort)
+    self.cull.daemon = True
+    self.cull.start()
   
 
     

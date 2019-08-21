@@ -1,5 +1,5 @@
-from Vector3D import *
-from Vector2D import *
+from .Vector3D import *
+from .Vector2D import *
 
 class Sprite:
   def __init__(self, image = None):

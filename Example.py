@@ -1,16 +1,16 @@
 from Tkinter        import *
-from Input          import *
-from Scene          import *
-from Viewport       import *
-from Scroller       import *
-from SpritePicker   import *
-from SpriteGrabber  import *
-from Sprite         import *
-from Updateables    import *
+from iso.Input      import *
+from iso.Scene          import *
+from iso.Viewport       import *
+from iso.Scroller       import *
+from iso.SpritePicker   import *
+from iso.SpriteGrabber  import *
+from iso.Sprite         import *
+from iso.Updateables    import *
+from iso.utils          import *
+from iso.Vector3D       import *
 from Terrain        import *
 from Heightmap      import *
-from utils          import *
-from Vector3D       import *
 
 
 import pygame

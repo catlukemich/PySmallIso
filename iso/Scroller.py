@@ -1,5 +1,5 @@
-from Input    import *
-from Vector2D import *
+from .Input    import *
+from .Vector2D import *
 
 
 
