@@ -6,7 +6,7 @@ The engine allows to place and manipulate 2.5D (semi 3D) objects in isometric 3D
 
 ## Example
 With the engine is provided an example, which you should look at. It shows how the initialization of the engine goes, how to create layers of sprites, add sprites to layers,  and update the sprites. 
-To run the file (provided you have Python 2.7 and Pygame installed) enter the project directory and issue the command:
+To run the file (provided you have Python 3.8 and Pygame installed) enter the project directory and issue the command:
 ```sh
 python Example.py
 ```
