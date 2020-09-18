@@ -31,6 +31,7 @@ class SpriteGrabber(MouseListener):
       
       loc.x += float(dy) / TILE_HEIGHT
       loc.y += float(dy) / TILE_HEIGHT
+      self.sprite_grabbed.setLocation(loc)
 
   def disable(self):
     self.input.removeMouseListener(self)
