@@ -1,3 +1,4 @@
+from functools import cmp_to_key
 from .Vector2D import *
 from .Vector3D import *
 import threading
@@ -37,7 +38,7 @@ class Viewport:
   def draw(self):
     viewport_layers = self.layers
     for viewport_layer in viewport_layers:
-      viewport_layer.sprites.sort(cmp=self.sortSprites)
+      viewport_layer.sprites.sort(key = cmp_to_key(self.sortSprites))
 
     for layer in self.layers:
       for sprite in layer.sprites:

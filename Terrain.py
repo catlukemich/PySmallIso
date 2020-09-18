@@ -52,6 +52,6 @@ if __name__ == "__main__":
   for y in range(0, hm.height):
     for x in range(0, hm.width):
       index = y * hm.width + x
-      print "{0:3.0f}".format(hm.heights[index]),
-    print "\n"
+      print ("{0:3.0f}".format(hm.heights[index])),
+    print ("\n")
   raw_input()

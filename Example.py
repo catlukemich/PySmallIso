@@ -1,14 +1,5 @@
-from Tkinter        import *
 from iso.Input      import *
-from iso.Scene          import *
-from iso.Viewport       import *
-from iso.Scroller       import *
-from iso.SpritePicker   import *
-from iso.SpriteGrabber  import *
-from iso.Sprite         import *
-from iso.Updateables    import *
-from iso.utils          import *
-from iso.Vector3D       import *
+import iso
 from Terrain        import *
 from Heightmap      import *
 
@@ -21,31 +12,32 @@ class Example():
   
     pygame.init()
     pygame.display.set_caption("PySmallIsoExample")
-    
-    
+    icon = pygame.image.load("icon.png")
+    pygame.display.set_icon(icon)
+
     screen = pygame.display.set_mode((1024, 768), pygame.RESIZABLE | pygame.DOUBLEBUF | pygame.HWSURFACE )
     self.screen = screen
 
-    input = Input()
+    input = iso.Input()
     
-    scene  = Scene()
+    scene  = iso.Scene()
     scene.addLayer("Land", 0)
     scene.addLayer("Overlays", 1)
     scene.addLayer("Overground", 2)
     
-    viewport = Viewport(screen, scene)
+    viewport = iso.Viewport(screen, scene)
     self.viewport = viewport
 
-    scroller = Scroller(viewport, input)
+    scroller = iso.Scroller(viewport, input)
     scroller.enable()
 
-    updater = Updater()
+    updater = iso.Updater()
     self.updater = updater
 
-    sprite_picker = SpritePicker(input, viewport)
+    sprite_picker = iso.SpritePicker(input, viewport)
     sprite_picker.enable()
 
-    sprite_grabber = SpriteGrabber(input, viewport)
+    sprite_grabber = iso.SpriteGrabber(input, viewport)
     sprite_grabber.enable()
 
     img = loadImage("assets/truck.png")

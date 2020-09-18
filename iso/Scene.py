@@ -1,3 +1,5 @@
+from functools import cmp_to_key
+
 class SceneLayer:
   def __init__(self, name, index):
     self.name  = name
@@ -15,7 +17,7 @@ class Scene:
   def addLayer(self, layer_name, index):
     new_layer = SceneLayer(layer_name, index)
     self.layers.append(new_layer)
-    self.layers.sort(cmp = self.sortLayers)
+    self.layers.sort(key = cmp_to_key(self.sortLayers))
 
   def removeLayer(self, layer_name):
     for layer in self.layers:
