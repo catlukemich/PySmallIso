@@ -8,7 +8,6 @@ class SpriteGrabber(MouseListener):
         self.viewport = viewport
         self.sprite_grabbed = None
 
-
     def enable(self):
         self.input.addMouseListener(self)
 

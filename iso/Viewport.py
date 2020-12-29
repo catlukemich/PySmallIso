@@ -6,6 +6,7 @@ from .Vector3D import *
 import threading
 import time
 
+
 # The tile width and height in pixels.
 # Modify this values if you want tiles to be in different size.
 
@@ -13,6 +14,7 @@ class ViewportLayer:
     def __init__(self, scene_layer):
         self.scene_layer = scene_layer
         self.sprites = []
+
 
 class Viewport:
     def __init__(self, screen, scene):
@@ -26,15 +28,12 @@ class Viewport:
         self.world_sprites = []
         self.layers = []  # List of viewport layers
 
-
-
     def draw(self):
         viewport_layers = self.layers
 
         self.cull()
         for viewport_layer in viewport_layers:
             viewport_layer.sprites.sort(key=cmp_to_key(self.sortSprites))
-
 
         for layer in self.layers:
             for sprite in layer.sprites:
@@ -45,7 +44,6 @@ class Viewport:
             # for cell_hash in cells:
             #     cell = cells[cell_hash]
             #     cell.drawIsoBoundaries(self, self.screen)
-
 
     # Sort the layers:
     def sortSprites(self, sprite1, sprite2):
@@ -90,10 +88,9 @@ class Viewport:
         # Give the viewport rectangle a little offset so that cells nearby the
         # edges of the screen will also be checked when culling sprites:
         offset = 128
-        viewport_rectangle = Rectangle(0 - offset, 0 - offset, w + 2*offset, h + 2* offset)
-        cell_rectangle     = cell.getBoundaries(self)
+        viewport_rectangle = Rectangle(0 - offset, 0 - offset, w + 2 * offset, h + 2 * offset)
+        cell_rectangle = cell.getBoundaries(self)
         return viewport_rectangle.intersects(cell_rectangle)
-
 
     def getCenter(self):
         return Vector3D(self.center.x, self.center.y, 0)
@@ -127,7 +124,6 @@ class Viewport:
 
         picked_sprites.reverse()
         return picked_sprites
-
 
     def getTileWidth(self):
         return self.tile_width

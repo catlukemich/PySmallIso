@@ -3,6 +3,7 @@ from .Rectangle import Rectangle
 from .Vector3D import Vector3D
 from math import *
 
+
 class CullingGrid:
 
     def __init__(self, cell_size):
@@ -34,14 +35,11 @@ class CullingGrid:
 
         cell.addSprite(sprite)
 
-
     def removeSprite(self, sprite):
         hash = self.calcCellHash(sprite)
         if hash in self.cells:
             cell = self.cells[hash]
             cell.removeSprite(sprite)
-
-
 
     def calcCellHash(self, sprite):
         sprite_loc = sprite.getLocation()
@@ -58,17 +56,14 @@ class CullingGrid:
         return Vector3D(cell_x, cell_y, 0)
 
 
-
 class CullingCell:
     def __init__(self, grid, location):
         self.grid = grid
         self.location = location
         self.sprites = []
 
-
     def addSprite(self, sprite):
         self.sprites.append(sprite)
-
 
     def removeSprite(self, sprite):
         self.sprites.remove(sprite)
@@ -77,18 +72,17 @@ class CullingCell:
         cell_size = self.grid.getCellSize()
         cell_center = viewport.project(self.location)
         offset_horizontal = cell_size / 2 * viewport.getTileWidth()
-        offset_vertical   = cell_size / 2 * viewport.getTileHeight()
+        offset_vertical = cell_size / 2 * viewport.getTileHeight()
 
-        cell_left   = cell_center.x - offset_horizontal
-        cell_top    = cell_center.y - offset_vertical
+        cell_left = cell_center.x - offset_horizontal
+        cell_top = cell_center.y - offset_vertical
 
-        cell_width  = 2 * offset_horizontal
+        cell_width = 2 * offset_horizontal
         cell_height = 2 * offset_vertical
 
         return Rectangle(cell_left, cell_top, cell_width, cell_height)
 
     def drawIsoBoundaries(self, viewport, surface):
-
         cell_size = self.grid.getCellSize()
         cell_center = viewport.project(self.location)
         offset_horizontal = cell_size / 2 * viewport.getTileWidth()
@@ -102,11 +96,11 @@ class CullingCell:
 
         pygame.draw.line(surface, (0, 0, 0), (cell_left, cell_center.y), (cell_center.x, cell_top), 2)
         pygame.draw.line(surface, (0, 0, 0), (cell_center.x, cell_top), (cell_left + cell_width, cell_center.y), 2)
-        pygame.draw.line(surface, (0, 0, 0), (cell_left + cell_width, cell_center.y), (cell_center.x, cell_top + cell_height), 2)
+        pygame.draw.line(surface, (0, 0, 0), (cell_left + cell_width, cell_center.y),
+                         (cell_center.x, cell_top + cell_height), 2)
         pygame.draw.line(surface, (0, 0, 0), (cell_center.x, cell_top + cell_height), (cell_left, cell_center.y), 2)
 
         font = pygame.font.SysFont("Arial", 16)
         pos_string = f"(Cell: {self.location.x}, {self.location.y}"
-        text_surface = font.render(pos_string, True, (0,0,0))
+        text_surface = font.render(pos_string, True, (0, 0, 0))
         surface.blit(text_surface, (cell_center.x, cell_center.y))
-

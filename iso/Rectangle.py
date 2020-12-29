@@ -1,5 +1,3 @@
-
-
 class Rectangle:
 
     def __init__(self, x, y, w, h):
@@ -7,8 +5,6 @@ class Rectangle:
         self.y = y
         self.w = w
         self.h = h
-
-
 
     def intersects(self, other):
         self_top_left_x = self.x
@@ -30,7 +26,7 @@ class Rectangle:
 
 
 if __name__ == "__main__":
-    r1 = Rectangle(0,0, 10, 10)
+    r1 = Rectangle(0, 0, 10, 10)
     r2 = Rectangle(5, 11, 10, 10)
 
     print(r1.intersects(r2))

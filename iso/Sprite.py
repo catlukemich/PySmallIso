@@ -13,15 +13,15 @@ class Sprite:
         (w, h) = self.image.get_size()
         screen.blit(self.image, (position.x - w / 2, position.y - h / 2))
 
-    def setLocation(self, loc, update_grid = True):
+    def setLocation(self, loc, update_grid=True):
         if update_grid and self.layer != None:
-          old_location = self.getLocation()
-          new_location = loc
+            old_location = self.getLocation()
+            new_location = loc
 
         self.location = loc
 
         if update_grid and self.layer != None:
-          self.layer.setSpriteLocation(self, old_location, new_location)
+            self.layer.setSpriteLocation(self, old_location, new_location)
 
     def getLocation(self):
         return self.location
