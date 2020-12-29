@@ -8,17 +8,11 @@ import time
 
 # The tile width and height in pixels.
 # Modify this values if you want tiles to be in different size.
-TILE_WIDTH = 128
-TILE_HEIGHT = 64
-
 
 class ViewportLayer:
     def __init__(self, scene_layer):
         self.scene_layer = scene_layer
         self.sprites = []
-
-
-
 
 class Viewport:
     def __init__(self, screen, scene):
@@ -36,16 +30,16 @@ class Viewport:
 
     def draw(self):
         viewport_layers = self.layers
-        self.cullAndSort()
+
+        self.cull()
         for viewport_layer in viewport_layers:
             viewport_layer.sprites.sort(key=cmp_to_key(self.sortSprites))
 
-        drawn_count = 0
+
         for layer in self.layers:
             for sprite in layer.sprites:
                 sprite.draw(self, self.screen)
-                drawn_count += 1
-        print(drawn_count)
+
             # Debug code, uncomment to see the iso boundaries of each culling cell:
             # cells = layer.scene_layer.grid.cells
             # for cell_hash in cells:
@@ -64,9 +58,9 @@ class Viewport:
         else:
             return -1
 
-    def cullAndSort(self):
+    def cull(self):
 
-        offset = 256  # The offset for culling sprites
+        offset = 0  # The offset for culling sprites
 
         (w, h) = self.screen.get_size()
 

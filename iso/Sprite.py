@@ -24,7 +24,7 @@ class Sprite:
           self.layer.setSpriteLocation(self, old_location, new_location)
 
     def getLocation(self):
-        return Vector3D(self.location.x, self.location.y, self.location.z)
+        return self.location
 
     def isPicked(self, viewport, mouse_x, mouse_y):
         position = viewport.project(self.location)
