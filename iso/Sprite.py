@@ -1,46 +1,35 @@
-from .Vector3D import *
-from .Vector2D import *
+from .Vector3D import Vector3D
 
 
 class Sprite:
-    def __init__(self, image=None):
-        self.layer = None
-        self.image = image  # The image to render this sprite
+
+    def __init__(self):
+        self.layer = 0
         self.location = Vector3D()  # Location of the sprite in isometric 3d world coordinates
+        self.scene = None
+        self.parent = None
 
-    def draw(self, viewport, screen):
-        position = viewport.project(self.location)
-        (w, h) = self.image.get_size()
-        screen.blit(self.image, (position.x - w / 2, position.y - h / 2))
+    def draw(self, viewport):
+        pass
 
-    def setLocation(self, loc, update_grid=True):
-        if update_grid and self.layer != None:
-            old_location = self.getLocation()
-            new_location = loc
-
-        self.location = loc
-
-        if update_grid and self.layer != None:
-            self.layer.setSpriteLocation(self, old_location, new_location)
-
-    def getLocation(self):
+    def get_location(self):
         return self.location
 
-    def isPicked(self, viewport, mouse_x, mouse_y):
-        position = viewport.project(self.location)
-        (w, h) = self.image.get_size()
+    def set_location(self, location):
+        old_location = self.location
+        new_location = location
 
-        top_left = Vector2D(position.x - w / 2, position.y - h / 2)
-        bottom_right = Vector2D(position.x + w / 2, position.y + h / 2)
-        mouse = Vector2D(mouse_x, mouse_y)
+        scene = self.get_scene()
+        if scene is not None:
+            scene.update_sprite_location(self, old_location, new_location)
 
-        if mouse > top_left and mouse < bottom_right:
+        self.location = location
 
-            mouse_relative = mouse - top_left
-            color = self.image.get_at((int(mouse_relative.x), int(mouse_relative.y)))
-            if color.r == 255 and color.g == 0 and color.b == 255:
-                return False
-            else:
-                return True
-        else:
-            return False
+    def set_scene(self, scene):
+        self.scene = scene
+
+    def get_scene(self):
+        return self.scene
+
+    def is_picked(self, viewport, mouse_x, mouse_y):
+        pass

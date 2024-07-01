@@ -1,13 +1,12 @@
 import iso
-from examples.Terrain import *
-from examples.Heightmap import *
-
+from Terrain import *
+from Heightmap import *
 import pygame
 
 
 class Example():
-    def __init__(self):
 
+    def __init__(self):
         pygame.init()
         pygame.display.set_caption("PySmallIsoExample")
         icon = pygame.image.load("assets/icon.png")
@@ -19,9 +18,6 @@ class Example():
         input = iso.Input()
 
         scene = iso.Scene()
-        scene.addLayer("Land", 0)
-        scene.addLayer("Overlays", 1)
-        scene.addLayer("Overground", 2)
 
         viewport = iso.Viewport(screen, scene)
         self.viewport = viewport
@@ -38,26 +34,26 @@ class Example():
         sprite_grabber = iso.SpriteGrabber(input, viewport)
         sprite_grabber.enable()
 
-        img = iso.loadImage("assets/truck.png")
-        spr = Sprite(img)
-        scene.addSprite("Overground", spr)
+        img = iso.load_image("assets/truck.png")
+        spr = ImageSprite(img)
+        spr.layer = 1
+        scene.add_sprite(spr)
 
-        img = iso.loadImage("assets/aircraft.png")
-        spr = Sprite(img)
-        spr.setLocation(Vector3D(0.5, 0, 0))
-        scene.addSprite("Overground", spr)
+        img = iso.load_image("assets/aircraft.png")
+        spr = ImageSprite(img)
+        spr.layer = 1
+        spr.set_location(Vector3D(0.5, 0, 0))
+        scene.add_sprite(spr)
 
-        img = iso.loadImage("assets/forklift.png")
-        spr = Sprite(img)
-        spr.setLocation(Vector3D(0.5, 0.5, 0))
-        scene.addSprite("Overground", spr)
+        img = iso.load_image("assets/forklift.png")
+        spr = ImageSprite(img)
+        spr.layer = 1
+        spr.set_location(Vector3D(0.5, 0.5, 0))
+        scene.add_sprite(spr)
 
-        hm = SimplexHeightmap(200, 200)
+        hm = SimplexHeightmap(10, 10)
         terrain = Terrain(hm)
-        tiles = terrain.create()
-
-        for tile in tiles:
-            scene.addSprite("Land", tile)
+        scene.add_sprite(terrain)
 
         done = False
         clock = pygame.time.Clock()
@@ -66,12 +62,11 @@ class Example():
                 if event.type == pygame.QUIT:
                     done = True
                 else:
-                    input.handleEvent(event)
+                    input.handle_event(event)
 
             self.redraw()
             self.update()
             pygame.display.flip()
-
             clock.tick(60)
 
     def redraw(self):

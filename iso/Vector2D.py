@@ -21,7 +21,7 @@ class Vector2D:
         self.y = self.y / length
 
     def length(self):
-        return sqrt(self.x * self.x, self.y * self.y)
+        return math.sqrt(self.x * self.x, self.y * self.y)
 
     def __gt__(self, other):
         return (self.x > other.x and self.y > other.y)

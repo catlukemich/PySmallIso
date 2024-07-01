@@ -1,12 +1,15 @@
+from iso.SpriteComposite import SpriteComposite
 from iso.utils import *
-from iso.Sprite import *
+from iso.ImageSprite import *
+from iso.SpriteComposite import SpriteComposite
 
 
-class Terrain:
+class Terrain(SpriteComposite):
     def __init__(self, hm):
+        super().__init__()
         self.hm = hm
         self.tiles = []
-        pass
+        self.create()
 
     def create(self):
         for y in range(0, self.hm.height - 1):
@@ -21,7 +24,7 @@ class Terrain:
                 h_b = self.hm.heights[index_b]
                 h_br = self.hm.heights[index_br]
 
-                img = loadImage("assets/terrain/water_%d%d%d%d.png" % (h, h_r, h_b, h_br))
+                img = load_image("assets/terrain/water_%d%d%d%d.png" % (h, h_r, h_b, h_br))
 
                 if h == 0 or h_r == 0 or h_b == 0 or h_br == 0:
                     tile_type = Tile.WATER
@@ -29,19 +32,17 @@ class Terrain:
                     tile_type = Tile.LAND
 
                 tile = Tile(x, y, img, tile_type)
-                tile.setLocation(Vector3D(x, y, 0))
+                tile.set_location(Vector3D(x, y, 0))
 
-                self.tiles.append(tile)
-
-        return self.tiles
+                self.add_sprite(tile)
 
 
-class Tile(Sprite):
+class Tile(ImageSprite):
     WATER = 0
     LAND = 1
 
     def __init__(self, x, y, img, type):
-        Sprite.__init__(self, img)
+        ImageSprite.__init__(self, img)
         self.x = x
         self.y = y
         self.type = type

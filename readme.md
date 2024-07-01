@@ -13,3 +13,12 @@ python Example.py
 ### Notice about game assets
 The game assets are the images that the engine uses to render the sprite in isometric world. The sprite are color keyed with a pink color - what means that the pink color is not drawn when the sprite is drawn. Use the **#FF00FF** color value for the places you want to appear transparent during rendering. 
 
+##### Preview
+
+<div style="text-align:center"> 
+
+
+[![](https://markdown-videos-api.jorgenkh.no/youtube/_vXeLqkDQpU)](https://youtu.be/_vXeLqkDQpU)
+
+
+</div>

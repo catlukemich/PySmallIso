@@ -1,4 +1,4 @@
-from examples.Noise import *
+from Noise import *
 
 
 class Heightmap:

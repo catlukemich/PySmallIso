@@ -2,21 +2,21 @@ import pygame
 
 
 class MouseListener:
-    def mouseButtonDown(self, event):
+    def mouse_button_down(self, event):
         pass
 
-    def mouseButtonUp(self, event):
+    def mouse_button_up(self, event):
         pass
 
-    def mouseMotion(self, event):
+    def mouse_motion(self, event):
         pass
 
 
 class KeyboardListener:
-    def keyDown(self, event):
+    def key_down(self, event):
         pass
 
-    def keyUp(self, event):
+    def key_up(self, event):
         pass
 
 
@@ -25,45 +25,45 @@ class Input:
         self.key_listeners = []
         self.mouse_listeners = []
 
-    def addMouseListener(self, listener):
+    def add_mouse_listener(self, listener):
         self.mouse_listeners.append(listener)
 
-    def addKeyboardListener(self, listener):
+    def add_keyboard_listener(self, listener):
         self.key_listeners.append(listener)
 
-    def handleEvent(self, event):
+    def remove_mouse_listener(self, listener):
+        self.mouse_listeners.remove(listener)
+
+    def remove_keyboard_listener(self, listener):
+        self.key_listeners.remove(listener)
+
+    def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             for listener in self.mouse_listeners:
-                consumed = listener.mouseButtonDown(event)
+                consumed = listener.mouse_button_down(event)
                 if consumed:
                     break
 
         if event.type == pygame.MOUSEBUTTONUP:
             for listener in self.mouse_listeners:
-                consumed = listener.mouseButtonUp(event)
+                consumed = listener.mouse_button_up(event)
                 if consumed:
                     break
 
         if event.type == pygame.MOUSEMOTION:
             for listener in self.mouse_listeners:
-                consumed = listener.mouseMotion(event)
+                consumed = listener.mouse_motion(event)
                 if consumed:
                     break
 
-        '''if event.type == pygame.MOUSEWHEEL:
-            for listener in self.mouse_listeners:
-                consumed = listener.mouseWheel(event)
-                if consumed: 
-                    break '''
-
         if event.type == pygame.KEYDOWN:
             for listener in self.key_listeners:
-                consumed = listener.keyDown(event)
+                consumed = listener.key_down(event)
                 if consumed:
                     break
 
         if event.type == pygame.KEYUP:
             for listener in self.key_listeners:
-                consumed = listener.keyUp(event)
+                consumed = listener.key_up(event)
                 if consumed:
                     break
